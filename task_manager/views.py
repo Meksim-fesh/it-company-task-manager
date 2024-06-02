@@ -22,4 +22,4 @@ def index(request: HttpRequest) -> HttpResponse:
         "num_visits": num_visits + 1,
     }
 
-    return render(request, "", context=context)
+    return render(request, "task_manager/index.html", context=context)
