@@ -3,7 +3,12 @@
 
 {% block content %}
 
-  <h1>Worker list</h1>
+  <h1>
+    Worker list
+    <a href="{% url 'task_manager:worker-create' %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
 
   {% if worker_list %}
 
@@ -23,7 +28,9 @@
           {{ worker.id }}
         </td>
         <td>
-          {{ worker.first_name }} {{ worker.last_name }}
+          <a href="{% url 'task_manager:worker-detail' pk=worker.id %}">
+            {{ worker.first_name }} {{ worker.last_name }}
+          </a>
         </td>
         <td>
           {{ worker.position }}
