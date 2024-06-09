@@ -54,6 +54,16 @@ urlpatterns = [
         views.WorkerDeleteView.as_view(),
         name="worker-delete",
     ),
+    path(
+        "task_types/",
+        views.TaskTypeListView.as_view(),
+        name="task_type-list",
+    ),
+    path(
+        "tasks/",
+        views.TaskListView.as_view(),
+        name="task-list",
+    ),
 ]
 
 app_name = "task_manager"

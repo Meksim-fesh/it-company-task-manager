@@ -80,3 +80,16 @@ class WorkerUpdateView(generic.UpdateView):
 class WorkerDeleteView(generic.DeleteView):
     model = Worker
     success_url = reverse_lazy("task_manager:worker-list")
+
+
+class TaskTypeListView(generic.ListView):
+    model = TaskType
+    paginate_by = 5
+    template_name = "task_manager/task_type_list.html"
+    context_object_name = "task_type_list"
+
+
+class TaskListView(generic.ListView):
+    model = Task
+    queryset = Task.objects.select_related("task_type")
+    paginate_by = 5
