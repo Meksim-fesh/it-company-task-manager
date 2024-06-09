@@ -60,9 +60,9 @@ class WorkerListView(generic.ListView):
 
 class WorkerDetailView(generic.DetailView):
     model = Worker
-    queryset = Worker.objects.select_related(
-        "position"
-    ).prefetch_related("tasks__task_type")
+    queryset = Worker.objects.select_related("position").prefetch_related(
+        "tasks"
+    )
 
 
 class WorkerCreateView(generic.CreateView):

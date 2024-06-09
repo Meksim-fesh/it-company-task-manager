@@ -16,7 +16,7 @@ class WorkerForm(UserCreationForm):
 
 
 class WorkerUpdateForm(forms.ModelForm):
-    class Meta():
+    class Meta:
         model = Worker
         fields = (
             "username",

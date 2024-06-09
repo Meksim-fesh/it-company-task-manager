@@ -4,7 +4,11 @@ import task_manager.views as views
 
 
 urlpatterns = [
-    path("", views.index, name="index",),
+    path(
+        "",
+        views.index,
+        name="index",
+    ),
     path(
         "positions/",
         views.PositionListView.as_view(),

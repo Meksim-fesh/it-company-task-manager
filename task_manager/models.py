@@ -46,8 +46,8 @@ class Task(models.Model):
         on_delete=models.SET_NULL,
     )
     assignees = models.ManyToManyField(Worker, related_name="tasks")
-    
+
     def __str__(self) -> str:
-        return f"{self.name} (Till: {self.deadline}, priority: {self.priority})"
-
-
+        return (
+            f"{self.name} (Till: {self.deadline}, priority: {self.priority})"
+        )
