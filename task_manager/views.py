@@ -89,6 +89,26 @@ class TaskTypeListView(generic.ListView):
     context_object_name = "task_type_list"
 
 
+class TaskTypeCreateView(generic.CreateView):
+    model = TaskType
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:task_type-list")
+    template_name = "task_manager/task_type_form.html"
+
+
+class TaskTypeUpdateView(generic.UpdateView):
+    model = TaskType
+    fields = "__all__"
+    success_url = reverse_lazy("task_manager:task_type-list")
+    template_name = "task_manager/task_type_form.html"
+
+
+class TaskTypeDeleteView(generic.DeleteView):
+    model = TaskType
+    success_url = reverse_lazy("task_manager:task_type-list")
+    template_name = "task_manager/task_type_confirm_delete.html"
+
+
 class TaskListView(generic.ListView):
     model = Task
     queryset = Task.objects.select_related("task_type")

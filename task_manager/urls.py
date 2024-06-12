@@ -60,6 +60,21 @@ urlpatterns = [
         name="task_type-list",
     ),
     path(
+        "task_types/create/",
+        views.TaskTypeCreateView.as_view(),
+        name="task_type-create",
+    ),
+    path(
+        "task_types/<int:pk>/update/",
+        views.TaskTypeUpdateView.as_view(),
+        name="task_type-update",
+    ),
+    path(
+        "task_types/<int:pk>/delete/",
+        views.TaskTypeDeleteView.as_view(),
+        name="task_type-delete",
+    ),
+    path(
         "tasks/",
         views.TaskListView.as_view(),
         name="task-list",
