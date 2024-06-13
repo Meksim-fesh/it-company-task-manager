@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 
 
-from task_manager.forms import WorkerForm, WorkerUpdateForm
+from task_manager.forms import TaskForm, WorkerForm, WorkerUpdateForm
 
 from .models import Worker, Position, TaskType, Task
 
@@ -113,3 +113,25 @@ class TaskListView(generic.ListView):
     model = Task
     queryset = Task.objects.select_related("task_type")
     paginate_by = 5
+
+
+class TaskDetailView(generic.DetailView):
+    model = Task
+    queryset = Task.objects.prefetch_related("assignees__position")
+
+
+class TaskCreateView(generic.CreateView):
+    model = Task
+    form_class = TaskForm
+    success_url = reverse_lazy("task_manager:task-list")
+
+
+class TaskUpdateView(generic.UpdateView):
+    model = Task
+    form_class = TaskForm
+    success_url = reverse_lazy("task_manager:task-list")
+
+
+class TaskDeleteView(generic.DeleteView):
+    model = Task
+    success_url = reverse_lazy("task_manager:task-list")
