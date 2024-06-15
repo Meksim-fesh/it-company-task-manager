@@ -19,6 +19,16 @@
   <p>Type: {{ task.task_type }}</p>
 
   <div class="ml-3">
+    
+    {% if task in user.tasks.all %}
+      <a href="{% url 'task_manager:toggle-task-assign' pk=task.id %}" class="btn btn-outline-danger">
+        Remove me from the task
+      </a>
+    {% else %}
+      <a href="{% url 'task_manager:toggle-task-assign' pk=task.id %}" class="btn btn-outline-success">
+        Assign me to the task
+      </a>
+    {% endif %}
     <h4>Working on it</h4>
 
     {% for worker in task.assignees.all %}

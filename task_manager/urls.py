@@ -99,6 +99,11 @@ urlpatterns = [
         views.TaskDeleteView.as_view(),
         name="task-delete",
     ),
+    path(
+        "tasks/<int:pk>/toggle-assign/",
+        views.toggle_assign_to_task,
+        name="toggle-task-assign",
+    ),
 ]
 
 app_name = "task_manager"
