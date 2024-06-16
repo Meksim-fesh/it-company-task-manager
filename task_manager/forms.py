@@ -28,6 +28,19 @@ class WorkerUpdateForm(forms.ModelForm):
         )
 
 
+class WorkerUsernameSearchForm(forms.Form):
+    username = forms.CharField(
+        max_length=256,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search by username"
+            }
+        )
+    )
+
+
 class TaskForm(forms.ModelForm):
     assignees = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.select_related("position"),
@@ -40,3 +53,16 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = "__all__"
+
+
+class TaskNameSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=256,
+        required=False,
+        label="",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search by name"
+            }
+        )
+    )

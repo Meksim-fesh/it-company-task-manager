@@ -10,6 +10,11 @@
     </a>
   </h1>
 
+  <form action="" method="get" class="form-inline">
+    {{ search_form.as_p }}
+    <input type="submit" value="🔎" class="btn btn-outline-success">
+  </form>
+
   {% if worker_list %}
 
   <table class="table">

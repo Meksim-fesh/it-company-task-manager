@@ -6,7 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-from task_manager.forms import TaskForm, WorkerForm, WorkerUpdateForm
+from task_manager.forms import (
+    TaskForm,
+    WorkerForm,
+    WorkerUpdateForm,
+    WorkerUsernameSearchForm
+)
 
 from .models import Worker, Position, TaskType, Task
 
@@ -57,8 +62,25 @@ class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
-    queryset = Worker.objects.select_related("position")
+    # queryset = Worker.objects.select_related("position")
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(WorkerListView, self).get_context_data(**kwargs)
+        username = self.request.GET.get("username", "")
+        context["search_form"] = WorkerUsernameSearchForm(
+            initial={"username": username},
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = Worker.objects.select_related("position")
+        form = WorkerUsernameSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                username__icontains=form.cleaned_data["username"]
+            )
+        return queryset
 
 
 class WorkerDetailView(LoginRequiredMixin, generic.DetailView):
