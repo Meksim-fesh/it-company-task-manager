@@ -10,6 +10,7 @@ from task_manager.forms import (
     PositionNameSearchForm,
     TaskForm,
     TaskNameSearchForm,
+    TaskTypeNameSearchForm,
     WorkerForm,
     WorkerUpdateForm,
     WorkerUsernameSearchForm
@@ -130,6 +131,23 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
     template_name = "task_manager/task_type_list.html"
     context_object_name = "task_type_list"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TaskTypeListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["search_form"] = TaskTypeNameSearchForm(
+            initial={"name": name},
+        )
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        form = TaskTypeNameSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+        return queryset
 
 
 class TaskTypeCreateView(LoginRequiredMixin, generic.CreateView):
