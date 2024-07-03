@@ -361,6 +361,18 @@ class PrivateTaskViewTest(TestCase):
             "a",
             "guest",
         ]
+        cls.task_completion_status = [
+            "all",
+            False,
+            True,
+        ]
+        cls.task_ordering = [
+            "none",
+            "name",
+            "-name",
+            "deadline",
+            "-deadline",
+        ]
 
     def setUp(self) -> None:
         self.admin = get_user_model().objects.create_superuser(
@@ -449,7 +461,7 @@ class PrivateTaskViewTest(TestCase):
             response, "task_manager/task_list.html"
         )
 
-    def test_task_search_result(self) -> None:
+    def test_task_search_by_name_result(self) -> None:
         self.creating_task_types_and_tasks()
         for task_name in self.task_names_search:
             with self.subTest(task_name):
@@ -470,6 +482,64 @@ class PrivateTaskViewTest(TestCase):
                         )
                     )
                 )
+
+    def test_task_sort_by_task_completion_result(self) -> None:
+        self.creating_task_types_and_tasks()
+        for completion_status in self.task_completion_status:
+            with self.subTest(completion_status):
+                response = self.client.get(
+                    TASK_LIST_URL,
+                    {
+                        "name": "",
+                        "task_completion": completion_status,
+                        "order": "none",
+                    }
+                )
+                self.assertEqual(response.status_code, 200)
+                if completion_status != "all":
+                    self.assertEqual(
+                        list(response.context["task_list"]),
+                        list(
+                            Task.objects.filter(
+                                is_completed=completion_status
+                            )
+                        )
+                    )
+                else:
+                    self.assertEqual(
+                        list(response.context["task_list"]),
+                        list(
+                            Task.objects.all()
+                        )
+                    )
+
+    def test_task_order_by_result(self) -> None:
+        self.creating_task_types_and_tasks()
+        for ordering in self.task_ordering:
+            with self.subTest(ordering):
+                response = self.client.get(
+                    TASK_LIST_URL,
+                    {
+                        "name": "",
+                        "task_completion": "all",
+                        "order": ordering,
+                    }
+                )
+                self.assertEqual(response.status_code, 200)
+                if ordering != "none":
+                    self.assertEqual(
+                        list(response.context["task_list"]),
+                        list(
+                            Task.objects.order_by(ordering)
+                        )
+                    )
+                else:
+                    self.assertEqual(
+                        list(response.context["task_list"]),
+                        list(
+                            Task.objects.all()
+                        )
+                    )
 
     def test_task_create(self) -> None:
         test_task_name = "Test name"
