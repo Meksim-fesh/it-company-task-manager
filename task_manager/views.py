@@ -178,10 +178,12 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         context = super(TaskListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
         task_completion = self.request.GET.get("task_completion", "all")
+        order = self.request.GET.get("order", "none")
         context["filter_form"] = TaskFilterForm(
             initial={
                 "name": name,
                 "task_completion": task_completion,
+                "order": order,
             },
         )
         return context
@@ -190,6 +192,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         queryset = Task.objects.select_related("task_type")
         queryset = self.filter_by_completion_status(queryset)
         queryset = self.filter_by_name(queryset)
+        queryset = self.order_by(queryset)
         return queryset
 
     def filter_by_completion_status(self, queryset):
@@ -202,6 +205,12 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         form = TaskFilterForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(name__icontains=form.cleaned_data["name"])
+        return queryset
+
+    def order_by(self, queryset):
+        order = self.request.GET.get("order", "none")
+        if order != "none":
+            return queryset.order_by(order)
         return queryset
 
 

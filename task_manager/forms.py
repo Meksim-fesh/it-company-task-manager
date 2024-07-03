@@ -62,6 +62,13 @@ class TaskFilterForm(forms.Form):
         (False, "Not completed"),
         (True, "Completed"),
     ]
+    TASK_ORDER_BY_CHOICES = [
+        ("none", "None"),
+        ("name", "Name - from A to z"),
+        ("-name", "Name - from z to A"),
+        ("deadline", "Deadline - from closest"),
+        ("-deadline", "Deadline - from farthest"),
+    ]
 
     name = forms.CharField(
         max_length=256,
@@ -77,6 +84,11 @@ class TaskFilterForm(forms.Form):
         choices=TASK_COMPLETION_CHOICES,
         initial=TASK_COMPLETION_CHOICES[0],
         label="Completion",
+    )
+    order = forms.ChoiceField(
+        choices=TASK_ORDER_BY_CHOICES,
+        initial=TASK_ORDER_BY_CHOICES[0],
+        label="Order by",
     )
 
 

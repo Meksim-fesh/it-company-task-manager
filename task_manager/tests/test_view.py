@@ -458,6 +458,7 @@ class PrivateTaskViewTest(TestCase):
                     {
                         "name": task_name,
                         "task_completion": "all",
+                        "order": "none",
                     }
                 )
                 self.assertEqual(response.status_code, 200)
