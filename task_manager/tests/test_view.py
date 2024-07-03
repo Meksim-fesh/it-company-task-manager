@@ -455,7 +455,10 @@ class PrivateTaskViewTest(TestCase):
             with self.subTest(task_name):
                 response = self.client.get(
                     TASK_LIST_URL,
-                    {"name": task_name}
+                    {
+                        "name": task_name,
+                        "task_completion": "all",
+                    }
                 )
                 self.assertEqual(response.status_code, 200)
                 self.assertEqual(

@@ -55,7 +55,14 @@ class TaskForm(forms.ModelForm):
         fields = "__all__"
 
 
-class TaskNameSearchForm(forms.Form):
+class TaskFilterForm(forms.Form):
+
+    TASK_COMPLETION_CHOICES = [
+        ("all", "All"),
+        (False, "Not completed"),
+        (True, "Completed"),
+    ]
+
     name = forms.CharField(
         max_length=256,
         required=False,
@@ -65,6 +72,11 @@ class TaskNameSearchForm(forms.Form):
                 "placeholder": "Search by name"
             }
         )
+    )
+    task_completion = forms.ChoiceField(
+        choices=TASK_COMPLETION_CHOICES,
+        initial=TASK_COMPLETION_CHOICES[0],
+        label="Completion",
     )
 
 

@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from task_manager.forms import (
     PositionNameSearchForm,
     TaskForm,
-    TaskNameSearchForm,
+    TaskFilterForm,
     TaskTypeNameSearchForm,
     WorkerForm,
     WorkerUpdateForm,
@@ -172,20 +172,34 @@ class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
-    queryset = Task.objects.select_related("task_type")
     paginate_by = 5
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
-        context["search_form"] = TaskNameSearchForm(
-            initial={"name": name},
+        task_completion = self.request.GET.get("task_completion", "all")
+        context["filter_form"] = TaskFilterForm(
+            initial={
+                "name": name,
+                "task_completion": task_completion,
+            },
         )
         return context
 
     def get_queryset(self):
         queryset = Task.objects.select_related("task_type")
-        form = TaskNameSearchForm(self.request.GET)
+        queryset = self.filter_by_completion_status(queryset)
+        queryset = self.filter_by_name(queryset)
+        return queryset
+
+    def filter_by_completion_status(self, queryset):
+        completion_status = self.request.GET.get("task_completion", "all")
+        if completion_status != "all":
+            return queryset.filter(is_completed=completion_status)
+        return queryset
+
+    def filter_by_name(self, queryset):
+        form = TaskFilterForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(name__icontains=form.cleaned_data["name"])
         return queryset
