@@ -13,7 +13,7 @@ from task_manager.forms import (
     TaskTypeNameSearchForm,
     WorkerForm,
     WorkerUpdateForm,
-    WorkerUsernameSearchForm
+    WorkerUsernameSearchForm,
 )
 
 from .models import Worker, Position, TaskType, Task
@@ -43,7 +43,7 @@ def index(request: HttpRequest) -> HttpResponse:
 
 class PositionListView(LoginRequiredMixin, generic.ListView):
     model = Position
-    paginate_by = 5
+    paginate_by = 6
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(PositionListView, self).get_context_data(**kwargs)
@@ -82,7 +82,7 @@ class PositionDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class WorkerListView(LoginRequiredMixin, generic.ListView):
     model = Worker
-    paginate_by = 5
+    paginate_by = 6
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(WorkerListView, self).get_context_data(**kwargs)
@@ -128,7 +128,7 @@ class WorkerDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TaskTypeListView(LoginRequiredMixin, generic.ListView):
     model = TaskType
-    paginate_by = 5
+    paginate_by = 6
     template_name = "task_manager/task_type_list.html"
     context_object_name = "task_type_list"
 
@@ -172,7 +172,7 @@ class TaskTypeDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
-    paginate_by = 5
+    paginate_by = 6
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TaskListView, self).get_context_data(**kwargs)
