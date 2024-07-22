@@ -1,18 +1,110 @@
-{% extends "base.html" %}
+{% extends 'layouts/base_background.html' %}
+{% load static %}
 
+{% block title %} IT Company Task Manager {% endblock title %}
 
 {% block content %}
-    <h1>It Company Task Manager - Main Page</h1>
-    <p>Welcome!</p>
-    <p>Here is some record counts:</p>
-    <ul>
-      <li><strong>Workers: </strong>{{ num_workers }}</li>
-      <li><strong>Tasks: </strong>{{ num_tasks }}</li>
-      <li><strong>Task types: </strong>{{ num_tasktypes }}</li>
-      <li><strong>Positions: </strong>{{ num_positions }}</li>
-    </ul>
 
-    <p>
-      You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.
-    </p>
-{% endblock %}
+  <header class="header-2">
+    <div class="page-header min-vh-75 relative" style="background-image: url('{% static 'img/bg3.jpg' %}')">
+      <span class="mask bg-gradient-primary opacity-4"></span>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-7 text-center mx-auto">
+            <h1 class="text-white pt-3 mt-n5">Task Manager System</h1>
+            <p class="lead text-white mt-3">The task best manager for the best IT company </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
+    <section class="pt-3 pb-4" id="count-stats">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9 mx-auto py-3">
+            <div class="row">
+              <div class="col-md-3 position-relative">
+                <div class="p-3 text-center">
+                  <h1 class="text-gradient text-primary"><span id="state1" countTo="{{ num_tasks }}">0</span>+</h1>
+                  <h5 class="mt-3">Tasks</h5>
+                </div>
+                <hr class="vertical dark">
+              </div>
+              <div class="col-md-3 position-relative">
+                <div class="p-3 text-center">
+                  <h1 class="text-gradient text-primary"> <span id="state2" countTo="{{ num_workers }}">0</span>+</h1>
+                  <h5 class="mt-3">Workers</h5>
+                </div>
+                <hr class="vertical dark">
+              </div>
+              <div class="col-md-3 position-relative">
+                <div class="p-3 text-center">
+                  <h1 class="text-gradient text-primary"><span id="state3" countTo="{{ num_positions }}">0</span></h1>
+                  <h5 class="mt-3">Positions</h5>
+                </div>
+                <hr class="vertical dark">
+              </div>
+              <div class="col-md-3 position-relative">
+                <div class="p-3 text-center">
+                  <h1 class="text-gradient text-primary"> <span id="state4" countTo="{{ num_tasktypes }}">0</span></h1>
+                  <h5 class="mt-3">Task Types</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+
+<script src="{% static 'js/plugins/countup.min.js' %}"></script>
+<script src="{% static 'js/plugins/choices.min.js' %}"></script>
+<script src="{% static 'js/plugins/prism.min.js' %}"></script>
+<script src="{% static 'js/plugins/highlight.min.js' %}"></script>
+<script src="{% static 'js/plugins/rellax.min.js' %}"></script>
+<script src="{% static 'js/plugins/tilt.min.js' %}"></script>
+<script src="{% static 'js/plugins/choices.min.js' %}"></script>
+
+
+<script type="text/javascript">
+
+  if (document.getElementById('state1')) {
+    const countUp = new CountUp('state1', document.getElementById("state1").getAttribute("countTo"));
+    if (!countUp.error) {
+      countUp.start();
+    } else {
+      console.error(countUp.error);
+    }
+  }
+  if (document.getElementById('state2')) {
+    const countUp1 = new CountUp('state2', document.getElementById("state2").getAttribute("countTo"));
+    if (!countUp1.error) {
+      countUp1.start();
+    } else {
+      console.error(countUp1.error);
+    }
+  }
+  if (document.getElementById('state3')) {
+    const countUp2 = new CountUp('state3', document.getElementById("state3").getAttribute("countTo"));
+    if (!countUp2.error) {
+      countUp2.start();
+    } else {
+      console.error(countUp2.error);
+    };
+  }
+  if (document.getElementById('state4')) {
+    const countUp3 = new CountUp('state4', document.getElementById("state4").getAttribute("countTo"));
+    if (!countUp3.error) {
+      countUp3.start();
+    } else {
+      console.error(countUp3.error);
+    };
+  }
+</script>
+
+{% endblock javascripts %}
