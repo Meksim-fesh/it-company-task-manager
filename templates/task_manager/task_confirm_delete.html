@@ -1,14 +1,30 @@
-{% extends "base.html" %}
+{% extends "layouts/base_background.html" %}
+
+{% block title %} IT Company Task Manager - Task Delete {% endblock title %}
 
 
 {% block content %}
 
-  <h1>Delete task?</h1>
-
-  <form action="" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Yes" class="btn btn-danger">
-  </form>
+  <div class="card card-body blur mx-3 mx-md-4 mb-4">
+    <div class="row my-sm-7">
+      <div class="col-md-12 mb-4">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <h4 class="txt-left-dir">
+                  Are you sure you want to delete the task?
+                </h4>
+              </div>
+            </div>
+            <div class="card-body">
+              <form action="" method="post">
+                {% csrf_token %}  
+                <input type="submit" value="Yes" class="btn btn-danger">
+              </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}
-
