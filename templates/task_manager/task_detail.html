@@ -70,15 +70,15 @@
         <div class="row">
           <div class="col-lg-6">
             <h3>Assigned workers</h3>
-            {% if task in user.tasks.all %}
-              <a href="{% url 'task_manager:toggle-task-assign' pk=task.id %}" class="btn btn-outline-danger">
-                Remove me from the task
-              </a>
-            {% else %}
-              <a href="{% url 'task_manager:toggle-task-assign' pk=task.id %}" class="btn btn-outline-success">
-                Assign me to the task
-              </a>
-            {% endif %}
+            <form action="{% url 'task_manager:toggle-task-assign' %}" method="post">
+              {% csrf_token %}
+              <input type="number" name="task_id" id="task_id" value="{{ task.id }}" hidden>
+              {% if task in user.tasks.all %}
+                <input type="submit" value="Remove me from the task" class="btn btn-outline-danger">
+              {% else %}
+                <input type="submit" value="Assign me to the task" class="btn btn-outline-success">
+              {% endif %}
+            </form>
           </div>
         </div>
         <div class="row">
