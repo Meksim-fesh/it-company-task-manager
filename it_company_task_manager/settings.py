@@ -88,7 +88,7 @@ WSGI_APPLICATION = "it_company_task_manager.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    "default": env.db()
+    "default": env.db(default="sqlite:///db.sqlite3")
 }
 
 
