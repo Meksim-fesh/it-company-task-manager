@@ -1,0 +1,36 @@
+<footer class="footer position-absolute bottom-2 py-2 w-100">
+  <div class="container">
+    <div class="row align-items-center justify-content-lg-between">
+      <div class="col-12 col-md-6 my-auto">
+        <div class="copyright text-center text-sm text-white text-lg-start">
+          IT Company Task Manager
+        </div>
+        <div>
+          <ul class="d-flex flex-row ms-n3 nav">
+            <li class="nav-item">
+              <a class="nav-link pe-1" href="https://github.com/Meksim-fesh" target="_blank">
+                <i class="fab fa-github text-white text-lg opacity-8"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+          <li class="nav-item">
+            <a href="{% url 'task_manager:task-list' %}" class="nav-link text-white" target="_blank">Tasks</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'task_manager:worker-list' %}" class="nav-link text-white" target="_blank">Workers</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'task_manager:task_type-list' %}" class="nav-link text-white" target="_blank">Task Types</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'task_manager:position-list' %}" class="nav-link pe-0 text-white" target="_blank">Positions</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
