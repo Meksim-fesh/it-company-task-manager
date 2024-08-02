@@ -35,7 +35,7 @@ DEBUG = env("DEBUG")
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
-    "https://it-company-task-manager-rek7.onrender.com",
+    "it-company-task-manager-rek7.onrender.com",
 ]
 
 INTERNAL_IPS = [
