@@ -80,6 +80,16 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+# Check It Out
+
+The project deployed to Render: [https://it-company-task-manager-rek7.onrender.com](https://it-company-task-manager-rek7.onrender.com)
+
+
+Test credentials
+
+**Login**: test_user
+**Password**: pass123word
+
 ## License
 
 This project is licensed under the MIT License.
