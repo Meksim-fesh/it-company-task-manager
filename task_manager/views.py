@@ -54,7 +54,7 @@ class PositionListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().order_by("id")
         form = PositionNameSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(
@@ -93,7 +93,7 @@ class WorkerListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = Worker.objects.select_related("position")
+        queryset = Worker.objects.select_related("position").order_by("id")
         form = WorkerUsernameSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(
@@ -141,7 +141,7 @@ class TaskTypeListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().order_by("id")
         form = TaskTypeNameSearchForm(self.request.GET)
         if form.is_valid():
             return queryset.filter(
@@ -189,7 +189,7 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
-        queryset = Task.objects.select_related("task_type")
+        queryset = Task.objects.select_related("task_type").order_by("id")
         queryset = self.filter_by_completion_status(queryset)
         queryset = self.filter_by_name(queryset)
         queryset = self.order_by(queryset)
