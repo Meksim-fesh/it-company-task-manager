@@ -5,7 +5,7 @@ A simple task management application for an IT company built with Django.
 ## Features
 
 ### Task Management
-- **Create, Update, Delete Tasks**: Easily manage tasks with CRUD operations.
+- **Create, Update, Delete Tasks**: Manage tasks with CRUD operations.
 - **View All Tasks**: Access a list of all tasks.
 - **View Task Details**: Access detailed information about each task.
 - **Assign Workers to Tasks**: Track which workers are assigned to specific tasks.
@@ -23,7 +23,7 @@ A simple task management application for an IT company built with Django.
 - **View All Task Types**: Access a list of all task types.
 
 ### Position Management
-- **Create, Update, Delete Positions**: Manage positions within the organization.
+- **Create, Update, Delete Positions**: Manage positions with CRUD operations.
 - **View All Positions**: Access a list of all positions.
 
 ### Additional Features
@@ -36,7 +36,7 @@ A simple task management application for an IT company built with Django.
 
 ```
 git clone https://github.com/Meksim-fesh/it-company-task-manager.git
-cd django-task-manager
+cd it-company-task-manager
 ```
 
 ### 2. Create and Activate Virtual Environment
